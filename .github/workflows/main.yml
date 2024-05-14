@@ -1,0 +1,44 @@
+name: JMeter Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  jmeter-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+
+    - name: Download Apache JMeter
+      run: |
+        curl -L -o apache-jmeter.zip https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.1.zip
+        unzip apache-jmeter.zip
+        export JMETER_HOME=$PWD/apache-jmeter-5.4.1/bin
+
+    - name: Run JMeter Test
+      run: |
+        ${JMETER_HOME}/jmeter -n -t "perf_actions/IP_Script.jmx" -l test_results.jtl -j jmeter.log
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: jmeter-results
+        path: test_results.jtl
+
+    - name: Upload Logs
+      uses: actions/upload-artifact@v4
+      with:
+        name: jmeter-logs
+        path: jmeter.log
