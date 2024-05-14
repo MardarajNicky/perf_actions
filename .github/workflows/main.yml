@@ -13,15 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Get IP Address
-      id: ip
-      uses: candidob/get-runner-ip@v1.0.0
-    
-    - name: See IP Addresses
-      run: |
-        echo ${{ steps.ip.outputs.ipv4 }}
-        echo ${{ steps.ip.outputs.ipv6 }}
-      
     - name: Checkout code
       uses: actions/checkout@v4
 
