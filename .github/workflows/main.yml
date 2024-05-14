@@ -24,9 +24,9 @@ jobs:
 
     - name: Download Apache JMeter
       run: |
-        curl -L -o apache-jmeter.zip https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.1.zip
-        unzip apache-jmeter.zip
-        export JMETER_HOME=$PWD/apache-jmeter-5.4.1/bin
+        wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz
+        tar -xf apache-jmeter-5.6.3.tgz
+        export JMETER_HOME=$PWD/apache-jmeter-5.6.3/bin
 
     - name: Run JMeter Test
       run: |
