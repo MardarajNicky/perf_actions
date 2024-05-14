@@ -19,7 +19,8 @@ jobs:
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
-        java-version: '11'
+        java-version: '21'
+        distribution: 'adopt'
 
     - name: Download Apache JMeter
       run: |
